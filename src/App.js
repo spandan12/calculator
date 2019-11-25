@@ -46,7 +46,7 @@ class App extends Component {
       notDuplicate.includes(lastElement)
     ) {
       tempResult = [...this.state.result];
-    } else if (keyValue === "=") {
+    } else if (keyValue === "=" && this.state.output == false) {
       let equation = new PostFixEquation(this.state.result);
       let postfix = equation.covertToEquation();
       let calculatedResult = calculateExpression(postfix);
@@ -54,8 +54,11 @@ class App extends Component {
       this.setState({
         output: true
       });
-    } else {
+    } else if (this.state.output == false) {
       tempResult = [...this.state.result, keyValue];
+    } else {
+      tempResult = ["0"];
+      console.log(tempResult);
     }
 
     this.setState({
